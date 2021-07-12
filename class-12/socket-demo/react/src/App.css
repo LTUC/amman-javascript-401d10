@@ -1,0 +1,28 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: lightgray;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+header {
+  background: deepskyblue;
+  width: 100%;
+}
+
+header nav ul li {
+  display: inline-block;
+  padding: 20px;
+  color: white;
+}
+header nav ul li:first-child {
+  font-size: large;
+  font-weight: bolder;
+  letter-spacing: 1px;
+}
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+}

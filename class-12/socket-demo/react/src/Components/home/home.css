@@ -1,0 +1,32 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 85vh;
+}
+.form-card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+  padding: 16px;
+  text-align: center;
+  background-color: #f1f1f1;
+  border-radius: 10px;
+}
+#questions-form {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 30px;
+}
+
+.question {
+  grid-column-start: 1;
+  grid-column-end: 6;
+}
+.lab {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+.cc {
+  grid-column-start: 3;
+  grid-column-end: 6;
+}
