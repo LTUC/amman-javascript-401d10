@@ -1,17 +1,18 @@
 {
-  "name": "demo-context-api",
+  "name": "class-32-solution-todo",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
-    "node-sass": "^4.14.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-jsonschema-form": "1.8.1",
+    "node-sass": "^6.0.1",
+    "react": "17.0.2",
+    "react-bootstrap": "^1.6.1",
+    "react-dom": "17.0.2",
+    "react-if": "^4.0.1",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.1",
-    "uuid": "8.1.0"
+    "react-scripts": "4.0.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {},
   "scripts": {

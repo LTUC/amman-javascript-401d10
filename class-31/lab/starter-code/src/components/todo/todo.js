@@ -1,73 +1,87 @@
-import React from 'react';
-import TodoForm from './form.js';
-import TodoList from './list.js';
+import React, { useEffect, useState } from 'react';
+import useForm from '../../hooks/form.js';
 
-import './todo.scss';
+import { v4 as uuid } from 'uuid';
 
-class ToDo extends React.Component {
+const ToDo = () => {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: [],
-    };
-  }
+  const [list, setList] = useState([]);
+  const [incomplete, setIncomplete] = useState([]);
+  const { handleChange, handleSubmit } = useForm(addItem);
 
-  addItem = (item) => {
-    item._id = Math.random();
+  function addItem(item) {
+    console.log(item);
+    item.id = uuid();
     item.complete = false;
-    this.setState({ list: [...this.state.list, item]});
-  };
-
-  toggleComplete = id => {
-
-    let item = this.state.list.filter(i => i._id === id)[0] || {};
-
-    if (item._id) {
-      item.complete = !item.complete;
-      let list = this.state.list.map(listItem => listItem._id === item._id ? item : listItem);
-      this.setState({list});
-    }
-
-  };
-
-  componentDidMount() {
-    let list = [
-      { _id: 1, complete: false, text: 'Clean the Kitchen', difficulty: 3, assignee: 'Person A'},
-      { _id: 2, complete: false, text: 'Do the Laundry', difficulty: 2, assignee: 'Person A'},
-      { _id: 3, complete: false, text: 'Walk the Dog', difficulty: 4, assignee: 'Person B'},
-      { _id: 4, complete: true, text: 'Do Homework', difficulty: 3, assignee: 'Person C'},
-      { _id: 5, complete: false, text: 'Take a Nap', difficulty: 1, assignee: 'Person B'},
-    ];
-
-    this.setState({list});
+    setList([...list, item]);
   }
 
-  render() {
-    return (
-      <>
-        <header>
-          <h2>
-          There are {this.state.list.filter(item => !item.complete).length} Items To Complete
-          </h2>
-        </header>
-
-        <section className="todo">
-
-          <div>
-            <TodoForm handleSubmit={this.addItem} />
-          </div>
-
-          <div>
-            <TodoList
-              list={this.state.list}
-              handleComplete={this.toggleComplete}
-            />
-          </div>
-        </section>
-      </>
-    );
+  function deleteItem(id) {
+    const items = list.filter( item => item.id !== id );
+    setList(items);
   }
-}
+
+  function toggleComplete(id) {
+
+    const items = list.map( item => {
+      if ( item.id == id ) {
+        item.complete = ! item.complete;
+      }
+      return item;
+    });
+
+    setList(items);
+
+  }
+
+  useEffect(() => {
+    let incompleteCount = list.filter(item => !item.complete).length;
+    setIncomplete(incompleteCount);
+    document.title = `To Do List: ${incomplete}`;
+  }, [list]);
+
+  return (
+    <>
+      <header>
+        <h1>To Do List: {incomplete} items pending</h1>
+      </header>
+
+      <form onSubmit={handleSubmit}>
+
+        <h2>Add To Do Item</h2>
+
+        <label>
+          <span>To Do Item</span>
+          <input onChange={handleChange} name="text" type="text" placeholder="Item Details" />
+        </label>
+
+        <label>
+          <span>Assigned To</span>
+          <input onChange={handleChange} name="assignee" type="text" placeholder="Assignee Name" />
+        </label>
+
+        <label>
+          <span>Difficulty</span>
+          <input onChange={handleChange} defaultValue={3} type="range" min={1} max={5} name="difficulty" />
+        </label>
+
+        <label>
+          <button type="submit">Add Item</button>
+        </label>
+      </form>
+
+      {list.map(item => (
+        <div key={item.id}>
+          <p>{item.text}</p>
+          <p><small>Assigned to: {item.assignee}</small></p>
+          <p><small>Difficulty: {item.difficulty}</small></p>
+          <div onClick={() => toggleComplete(item.id)}>Complete: {item.complete.toString()}</div>
+          <hr />
+        </div>
+      ))}
+
+    </>
+  );
+};
 
 export default ToDo;
