@@ -1,0 +1,13 @@
+.values {
+  /* position: absolute;
+  top: 5px;
+  right: 50px; */
+  /* margin-right: 50px; */
+}
+
+.dark .values {
+  color: ivory;
+}
+.light .values {
+  color: #111;
+}

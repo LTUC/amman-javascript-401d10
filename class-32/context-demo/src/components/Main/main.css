@@ -1,0 +1,23 @@
+main {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 0 20px;
+}
+.dark {
+  background-color: #111;
+  color: ivory;
+}
+
+.light {
+  background-color: #f5f5f5;
+  color: #525252;
+}
+button {
+  padding: 0.25rem;
+  margin: 0.25rem;
+}
+.light button {
+  background-color: #111;
+  color: ivory;
+}
